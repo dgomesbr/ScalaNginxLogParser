@@ -47,7 +47,6 @@ The `NginxLogRecord` class definition looks like this:
         URLReferer:String,              // Referer URL
         UserAgent:String,               // Which User Agent
         UpstreamResponseTime:String,    // Upstream response time, typically '-'
-        PipeTime:String,                // Pipe typically '.'
         ResponseCode:String             // HTTP Status
     )
 ```
@@ -73,7 +72,6 @@ In the test code you'll see that I use the parser like this:
             assert(r.URLReferer:String == "http://wap.tim.com.br/")
             assert(r.UserAgent:String == "Mozilla/5.0 (Linux; U; Android 2.2; pt-br; GT-I5500B")
             assert(r.UpstreamResponseTime == "-")
-            assert(r.PipeTime == ".")
             assert(r.ResponseCode == "200")
         }
     }

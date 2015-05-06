@@ -15,7 +15,7 @@ class NginxLogRecordSpec extends FunSpec with BeforeAndAfter with GivenWhenThen 
       val parser = new NginxLineParser
       val rec = parser.parse(records.head)
       it("the result should not be None") {
-        assert(rec != None)
+        assert(rec.isDefined)
       }
       it("the individual fields should be right") {
           rec match {

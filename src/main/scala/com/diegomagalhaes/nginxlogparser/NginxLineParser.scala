@@ -12,7 +12,7 @@ import java.util.regex.{Matcher, Pattern}
  * 
  */
 class NginxLineParser extends Serializable {
-  private val regex = "([^-]*)\\s+-\\s+(\\S+)\\s+\\[(\\d{2}\\/[a-zA-Z]{3}\\/\\d{4}:\\d{2}:\\d{2}:\\d{2}\\s+-\\d{4})\\]\\s+\"(.+)\"\\s+(\\d{1,}\\.\\d{3})\\s+(\\d+)\\s+\"([^\"]+)\"\\s+Agent\\[\"([^\"]+)\"\\]\\s+(-|\\d.\\d{3,})\\s+\\.\\s+(\\d{1,}).*"
+  private val regex = "([^-]*)\\s+-\\s+(\\S+)\\s+\\[(\\d{2}\\/[a-zA-Z]{3}\\/\\d{4}:\\d{2}:\\d{2}:\\d{2}\\s+-\\d{4})\\]\\s+\"(.+)\"\\s+(\\d{1,}\\.\\d{3})\\s+(\\d+)\\s+\"([^\"]+)\"\\s+Agent\\[\"([^\"]+)\"\\]\\s+(-|\\d.\\d{3,})\\s+(\\S+)\\s+(\\d{1,}).*"
   private val p = Pattern.compile(regex)
 
   /**
@@ -32,7 +32,8 @@ class NginxLineParser extends Serializable {
       matcher.group(7),
       matcher.group(8),
       matcher.group(9),
-      matcher.group(10)
+      matcher.group(10),
+      matcher.group(11)
     ))
 
     val matcher = p.matcher(record)

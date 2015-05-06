@@ -31,6 +31,7 @@ class NginxLogRecordSpec extends FunSpec with BeforeAndAfter with GivenWhenThen 
               assert(r.URLReferer == "http://wap.tim.com.br/")
               assert(r.UserAgent == "Mozilla/5.0 (Linux; U; Android 2.2; pt-br; GT-I5500B")
               assert(r.UpstreamResponseTime == "-")
+              assert(r.Pipe == ".")
               assert(r.ResponseCode == "200")
             case None => fail("Record read is none")
           }

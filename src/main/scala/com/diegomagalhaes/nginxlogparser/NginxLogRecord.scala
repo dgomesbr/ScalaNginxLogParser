@@ -15,6 +15,8 @@ case class NginxLogRecord (
         URLReferer:String,              // Referer URL
         UserAgent:String,               // Which User Agent
         UpstreamResponseTime:String,    // Upstream response time, typically '-'
-        Pipe:String,                    // Typically .
+        Pipe:String,                    // Typically
+        MSISDN:String,                  // MSISDN of the User, can be '-'
+        XCALL:String,                  // MSISDN of the User, can be '-'
         ResponseCode:String             // HTTP Status
 )

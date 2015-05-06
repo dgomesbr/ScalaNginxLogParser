@@ -12,14 +12,14 @@ import java.util.regex.{Matcher, Pattern}
  * 
  */
 class NginxLineParser extends Serializable {
-  private val regex = "([^-]*)\\s+-\\s+(\\S+)\\s+\\[(\\d{2}\\/[a-zA-Z]{3}\\/\\d{4}:\\d{2}:\\d{2}:\\d{2}\\s+-\\d{4})\\]\\s+\\\"(.+)\\\"\\s+(\\d{1,}\\.\\d{3})\\s+(\\d+)\\s+\\\"([^\\\"]+)\\\"\\s+Agent\\[\\\"([^\\\"]+)\\\"\\]\\s+(-|\\d.\\d{3,})\\s+(\\S+)\\s+msisdn\\[(\\S+)\\]\\s+xcall\\[(\\S+)\\]\\s+(\\d{1,}).*"
-  private val p = Pattern.compile(regex)
+  private val regex = "([^-]*)\\s+-\\s+(\\S+)\\s+\\[(\\d{2}\\/[a-zA-Z]{3}\\/\\d{4}:\\d{2}:\\d{2}:\\d{2}\\s+-\\d{4})\\]\\s+\\\"(.+)\\\"\\s+(\\d{1,}\\.\\d{3})\\s+(\\d+)\\s+\\\"([^\\\"]+)\\\"\\s+Agent\\[\\\"([^\\\"]+)\\\"\\]\\s+(-|\\d.\\d{3,})\\s+(\\S+)\\s+msisdn\\[(\\S+)\\]\\s+xcall\\[(\\S+)\\]\\s+(\\d{1,}).*".r
 
   /**
    * @param record Assumed to be an Nginx access log.
    * @return An NginxLogRecord instance wrapped in an Option.
    */
   def parse(record: String): Option[NginxLogRecord] = {
+
     def parseRequestField(request: String): Option[(String, String, String)] = {
       request.split(" ").toList match {
         case List(a, b, c) => Some((a, b, c))
@@ -27,31 +27,32 @@ class NginxLineParser extends Serializable {
       }
     }
 
-    def buildFromMatcher(matcher: Matcher) = {
-      val requestTuple = parseRequestField(matcher.group(4))
-
-      Some(NginxLogRecord(
-        matcher.group(1),
-        matcher.group(2),
-        matcher.group(3),
-        if (requestTuple.isDefined) requestTuple.get._1 else "",
-        if (requestTuple.isDefined) requestTuple.get._2 else "",
-        if (requestTuple.isDefined) requestTuple.get._3 else "",
-        matcher.group(5),
-        matcher.group(6),
-        matcher.group(7),
-        matcher.group(8),
-        matcher.group(9),
-        matcher.group(10),
-        matcher.group(11),
-        matcher.group(12),
-        matcher.group(13)
-      ))
+    record match {
+        case regex(ip, ruser, datetime, req, reqtime, recbytes, ref, ua, upstreamtime, pipe, msisdn, xcall, status) =>
+          val requestTuple = parseRequestField(req)
+          Some(
+            NginxLogRecord(
+              ip,
+              ruser,
+              datetime,
+              if (requestTuple.isDefined) requestTuple.get._1 else "",
+              if (requestTuple.isDefined) requestTuple.get._2 else "",
+              if (requestTuple.isDefined) requestTuple.get._3 else "",
+              reqtime,
+              recbytes,
+              ref,
+              ua,
+              upstreamtime,
+              pipe,
+              msisdn,
+              xcall,
+              status
+            )
+         )
+      case _ => None
     }
-
-    val matcher = p.matcher(record.trim)
-    if (matcher.find) buildFromMatcher(matcher) else None
   }
+
 }
 
 object NginxLineParser

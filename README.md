@@ -25,13 +25,16 @@ It's a copy of [Alvin Alexander - ScalaApacheNginxLineParser](https://github.com
 
 The API is in flux, but right now the usage starts like this:
 
+```scala
     val rawRecord = """192.168.0.237 - - [04/May/2015:23:02:01 -0300]  "GET /adserver/www/delivery/lg.php?bannerid=9388 HTTP/1.1" 0.000  43 "http://wap.tim.com.br/" Agent["Mozilla/5.0 (Linux; U; Android 2.2; pt-br; GT-I5500B"] - . 200""""
     
     val parser = NginxLineParser
     val line = parser.parse(rawRecord)    // an NginxLogRecord instance
+```
 
 The `NginxLogRecord` class definition looks like this:
 
+```scala
     case class NginxLogRecord (
         clientIpAddress:String,         // should be an ip address, but may also be the hostname if hostname-lookups are enabled
         remoteUser:String,              // typically '-'
@@ -47,9 +50,11 @@ The `NginxLogRecord` class definition looks like this:
         PipeTime:String,                // Pipe typically '.'
         ResponseCode:String             // HTTP Status
     )
+```
 
 In the test code you'll see that I use the parser like this:
 
+```scala
     val parser = new NginxLineParser
     val rec = parser.parseRecord(rawRecord)
     it("the result should not be None") {
@@ -72,6 +77,7 @@ In the test code you'll see that I use the parser like this:
             assert(r.ResponseCode == "200")
         }
     }
+```scala
 
 Tests are defined in the `NginxLogRecordSpec` class.
 

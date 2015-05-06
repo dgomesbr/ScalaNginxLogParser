@@ -21,8 +21,10 @@ class NginxLineParser extends Serializable {
    */
   def parse(record: String): Option[NginxLogRecord] = {
     def parseRequestField(request: String): Option[(String, String, String)] = {
-      val arr = request.split(" ")
-      if (arr.size == 3) Some((arr(0), arr(1), arr(2))) else None
+      request.split(" ").toList match {
+        case List(a, b, c) => Some((a, b, c))
+        case other => None
+      }
     }
 
     def buildFromMatcher(matcher: Matcher) = {

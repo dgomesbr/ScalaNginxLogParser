@@ -18,7 +18,7 @@ log_format timed_combined '$remote_addr - $remote_user [$time_local]  '
 
 ## Discussion
 
-It's a copy of [Alvin Alexander - ScalaApacheNginxLineParser](https://github.com/alvinj/ScalaApacheNginxLineParser) which works with Nginx access logs. 
+It's a copy of [Alvin Alexander - ScalaApacheAccessLogParser](https://github.com/alvinj/ScalaApacheAccessLogParser) which works with Nginx access logs. 
 
 
 ## Usage

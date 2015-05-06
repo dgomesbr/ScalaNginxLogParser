@@ -47,6 +47,7 @@ The `NginxLogRecord` class definition looks like this:
         URLReferer:String,              // Referer URL
         UserAgent:String,               // Which User Agent
         UpstreamResponseTime:String,    // Upstream response time, typically '-'
+        Pipe:String,                    // Upstream response time, typically '-'
         ResponseCode:String             // HTTP Status
     )
 ```

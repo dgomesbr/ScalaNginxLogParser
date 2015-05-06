@@ -1,7 +1,7 @@
 package com.diegomagalhaes.nginxlogparser
 
 /**
- * @see http://httpd.apache.org/docs/2.2/logs.html for details
+ * @see http://nginx.org/en/docs/http/ngx_http_log_module.html for details
  */
 case class NginxLogRecord (
         clientIpAddress:String,         // should be an ip address, but may also be the hostname if hostname-lookups are enabled

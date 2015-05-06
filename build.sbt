@@ -1,6 +1,8 @@
 name := "ScalaNginxAccessLogParser"
 
-version := "1.0"
+organization := "com.diegomagalhaes"
+
+version := "1.0-SNAPSHOT"
 
 scalaVersion := "2.11.6"
 

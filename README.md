@@ -77,7 +77,7 @@ In the test code you'll see that I use the parser like this:
             assert(r.ResponseCode == "200")
         }
     }
-```scala
+```
 
 Tests are defined in the `NginxLogRecordSpec` class.
 
